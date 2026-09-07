@@ -154,6 +154,13 @@ export type UiShot = {
   updated_at: string;
 };
 
+export type UiShotImage = {
+  id: string;
+  ui_shot_id: string;
+  media_id: string;
+  display_order: number;
+};
+
 export type UseCase = {
   id: string;
   title: string;

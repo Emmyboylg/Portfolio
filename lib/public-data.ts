@@ -85,21 +85,47 @@ export async function getProjectGallery(projectId: string) {
 
 export async function getUiShots() {
   const supabase = await createClient();
-  const { data } = await supabase
+  const { data: shots } = await supabase
     .from("ui_shots")
-    .select("*, media:media_id(storage_path), project:project_id(name, slug)")
+    .select("*, project:project_id(name, slug)")
     .order("display_order");
-  return data ?? [];
+
+  return attachUiShotImages(supabase, shots ?? []);
 }
 
 export async function getUiShotsForProject(projectId: string) {
   const supabase = await createClient();
-  const { data } = await supabase
+  const { data: shots } = await supabase
     .from("ui_shots")
-    .select("*, media:media_id(storage_path)")
+    .select("*")
     .eq("project_id", projectId)
     .order("display_order");
-  return data ?? [];
+
+  return attachUiShotImages(supabase, shots ?? []);
+}
+
+async function attachUiShotImages<T extends { id: string }>(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  shots: T[]
+): Promise<(T & { images: { id: string; storage_path: string }[] })[]> {
+  const ids = shots.map((s) => s.id);
+  if (ids.length === 0) return shots.map((s) => ({ ...s, images: [] }));
+
+  const { data: imageRows } = await supabase
+    .from("ui_shot_images")
+    .select("ui_shot_id, display_order, media:media_id(id, storage_path)")
+    .in("ui_shot_id", ids)
+    .order("display_order");
+
+  const imagesByShot = new Map<string, { id: string; storage_path: string }[]>();
+  for (const row of imageRows ?? []) {
+    const list = imagesByShot.get(row.ui_shot_id) ?? [];
+    const media = (row as unknown as { media: { id: string; storage_path: string } | null }).media;
+    if (media) list.push(media);
+    imagesByShot.set(row.ui_shot_id, list);
+  }
+
+  return shots.map((s) => ({ ...s, images: imagesByShot.get(s.id) ?? [] }));
 }
 
 export async function getUseCases() {

@@ -134,9 +134,9 @@ export default async function ProjectPage({
             <h2 className="font-display text-xl text-ink">UI shots</h2>
             <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {relatedShots.map((shot) => {
-                const url = mediaUrl(
-                  (shot as unknown as { media: { storage_path: string } | null }).media?.storage_path
-                );
+                const images = (shot as unknown as { images: { id: string; storage_path: string }[] }).images;
+                const cover = images?.[0];
+                const url = mediaUrl(cover?.storage_path);
                 return url ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img key={shot.id} src={url} alt={shot.title} className="aspect-square w-full rounded-lg object-cover" />

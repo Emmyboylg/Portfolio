@@ -31,7 +31,16 @@ export default async function HomePage() {
 
       <main className="mx-auto max-w-5xl px-6">
         <section id="about" className="grid gap-8 py-16 sm:grid-cols-[1fr_auto] sm:items-start">
-          <div>
+          {profileUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={profileUrl}
+              alt={about?.name ?? ""}
+              className="h-32 w-32 shrink-0 rounded-full object-cover sm:order-2 sm:h-40 sm:w-40"
+            />
+          )}
+
+          <div className="sm:order-1">
             {about?.availability_status && (
               <span className="inline-flex items-center gap-1.5 rounded-full bg-success-soft px-3 py-1 text-xs text-success">
                 <span className="h-1.5 w-1.5 rounded-full bg-success" />
@@ -56,15 +65,6 @@ export default async function HomePage() {
               </div>
             )}
           </div>
-
-          {profileUrl && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={profileUrl}
-              alt={about?.name ?? ""}
-              className="h-32 w-32 shrink-0 rounded-full object-cover sm:h-40 sm:w-40"
-            />
-          )}
         </section>
 
         <section className="pb-20">
@@ -108,8 +108,7 @@ export default async function HomePage() {
               description: shot.description,
               tags: shot.tags,
               tools: shot.tools,
-              mediaPath: (shot as unknown as { media: { storage_path: string } | null }).media
-                ?.storage_path,
+              images: (shot as unknown as { images: { id: string; storage_path: string }[] }).images,
             }))}
           />
         </section>
