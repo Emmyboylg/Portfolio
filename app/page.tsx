@@ -2,20 +2,23 @@ import Link from "next/link";
 import { Header } from "@/components/public/Header";
 import { Footer } from "@/components/public/Footer";
 import { ProjectCard } from "@/components/public/ProjectCard";
+import { UiShotsGallery } from "@/components/public/UiShotsGallery";
 import { mediaUrl } from "@/lib/media-url";
 import {
   getAbout,
   getSocialLinks,
   getSkills,
   getPublishedProjects,
+  getUiShots,
 } from "@/lib/public-data";
 
 export default async function HomePage() {
-  const [about, socialLinks, skills, projects] = await Promise.all([
+  const [about, socialLinks, skills, projects, uiShots] = await Promise.all([
     getAbout(),
     getSocialLinks(),
     getSkills(),
     getPublishedProjects(),
+    getUiShots(),
   ]);
 
   const featured = projects.filter((p) => p.featured).slice(0, 6);
@@ -92,6 +95,23 @@ export default async function HomePage() {
               ))}
             </div>
           )}
+        </section>
+
+        <section className="pb-20">
+          <div className="mb-6 flex items-end justify-between">
+            <h2 className="font-display text-2xl text-ink">UI shots</h2>
+          </div>
+          <UiShotsGallery
+            shots={uiShots.map((shot) => ({
+              id: shot.id,
+              title: shot.title,
+              description: shot.description,
+              tags: shot.tags,
+              tools: shot.tools,
+              mediaPath: (shot as unknown as { media: { storage_path: string } | null }).media
+                ?.storage_path,
+            }))}
+          />
         </section>
       </main>
 

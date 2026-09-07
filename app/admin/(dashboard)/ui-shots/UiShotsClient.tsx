@@ -148,6 +148,7 @@ function UiShotModal({
   const [projectId, setProjectId] = useState(shot?.project_id ?? "");
   const [media, setMedia] = useState<Media | null>(shot?.media ?? null);
   const [tags, setTags] = useState<string[]>(shot?.tags ?? []);
+  const [tools, setTools] = useState<string[]>(shot?.tools ?? []);
   const [featured, setFeatured] = useState(shot?.featured ?? false);
   const [saving, startSaving] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -161,6 +162,7 @@ function UiShotModal({
         project_id: projectId || null,
         media_id: media?.id ?? null,
         tags,
+        tools,
         featured,
       };
       const result = shot ? await updateUiShot(shot.id, input) : await createUiShot(input);
@@ -189,7 +191,7 @@ function UiShotModal({
           <Field label="Description">
             <Textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} />
           </Field>
-          <Field label="Project">
+          <Field label="Project" hint="Optional — leave blank for a standalone shot not tied to a project.">
             <Select value={projectId} onChange={(e) => setProjectId(e.target.value)}>
               <option value="">None</option>
               {projects.map((p) => (
@@ -200,6 +202,7 @@ function UiShotModal({
             </Select>
           </Field>
           <MediaPicker label="Image" value={media} onChange={setMedia} />
+          <TagInput label="Tools used" value={tools} onChange={setTools} placeholder="Figma, Framer…" />
           <TagInput label="Tags" value={tags} onChange={setTags} placeholder="Dashboard, Campaigns…" />
           <label className="flex items-center gap-2 text-sm text-ink">
             <input

@@ -146,6 +146,7 @@ export type UiShot = {
   project_id: string | null;
   media_id: string | null;
   tags: string[];
+  tools: string[];
   featured: boolean;
   status: ContentStatus;
   display_order: number;

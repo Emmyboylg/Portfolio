@@ -10,6 +10,7 @@ export interface UiShotInput {
   project_id: string | null;
   media_id: string | null;
   tags: string[];
+  tools: string[];
   featured: boolean;
 }
 
