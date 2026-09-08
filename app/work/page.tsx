@@ -33,6 +33,7 @@ export default async function WorkPage() {
                   (p as unknown as { thumbnail: { storage_path: string } | null }).thumbnail
                     ?.storage_path
                 }
+                projectUrl={p.project_url}
               />
             ))}
           </div>

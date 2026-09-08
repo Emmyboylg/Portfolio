@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { mediaUrl } from "@/lib/media-url";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 
 interface ShotForGallery {
   id: string;
@@ -10,6 +10,7 @@ interface ShotForGallery {
   description: string;
   tags: string[];
   tools: string[];
+  externalUrl: string | null;
   images: { id: string; storage_path: string }[];
 }
 
@@ -64,7 +65,21 @@ export function UiShotsGallery({ shots }: { shots: ShotForGallery[] }) {
                 </button>
               )}
               <div className="mt-3">
-                <h3 className="font-display text-lg text-ink">{shot.title}</h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-display text-lg text-ink">{shot.title}</h3>
+                  {shot.externalUrl && (
+                    <a
+                      href={shot.externalUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line-strong bg-surface text-ink-soft transition-colors hover:border-accent hover:bg-accent-soft hover:text-accent"
+                      aria-label={`View ${shot.title} on the original platform`}
+                      title="View original"
+                    >
+                      <ExternalLink size={12} />
+                    </a>
+                  )}
+                </div>
                 {shot.description && (
                   <p className="mt-0.5 text-sm text-ink-soft">{shot.description}</p>
                 )}

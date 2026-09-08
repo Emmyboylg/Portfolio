@@ -50,6 +50,7 @@ export async function updateCaseStudyMeta(
     summary: string;
     project_id: string | null;
     cover_media_id: string | null;
+    external_url: string;
     seo_title: string;
     seo_description: string;
     seo_og_media_id: string | null;
@@ -66,6 +67,7 @@ export async function updateCaseStudyMeta(
       summary: input.summary,
       project_id: input.project_id,
       cover_media_id: input.cover_media_id,
+      external_url: input.external_url || null,
       seo_title: input.seo_title || null,
       seo_description: input.seo_description || null,
       seo_og_media_id: input.seo_og_media_id,

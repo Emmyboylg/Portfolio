@@ -26,6 +26,7 @@ export function CaseStudyMetaForm({
   const [summary, setSummary] = useState(caseStudy.summary);
   const [projectId, setProjectId] = useState(caseStudy.project_id ?? "");
   const [cover, setCover] = useState<Media | null>(initialCover);
+  const [externalUrl, setExternalUrl] = useState(caseStudy.external_url ?? "");
   const [seoTitle, setSeoTitle] = useState(caseStudy.seo_title ?? "");
   const [seoDescription, setSeoDescription] = useState(caseStudy.seo_description ?? "");
   const [status, setStatus] = useState(caseStudy.status);
@@ -40,6 +41,7 @@ export function CaseStudyMetaForm({
       summary,
       project_id: projectId || null,
       cover_media_id: cover?.id ?? null,
+      external_url: externalUrl,
       seo_title: seoTitle,
       seo_description: seoDescription,
       seo_og_media_id: null,
@@ -122,6 +124,14 @@ export function CaseStudyMetaForm({
           persist();
         }}
       />
+      <Field label="External link" hint="Link to the full case study on Dribbble, Behance, etc. (optional)">
+        <Input
+          value={externalUrl}
+          onChange={(e) => setExternalUrl(e.target.value)}
+          onBlur={() => persist()}
+          placeholder="https://dribbble.com/shots/…"
+        />
+      </Field>
 
       <details className="rounded-md border border-line p-3">
         <summary className="cursor-pointer text-sm font-medium text-ink">SEO</summary>

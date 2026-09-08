@@ -10,6 +10,7 @@ export interface UiShotInput {
   project_id: string | null;
   tags: string[];
   tools: string[];
+  external_url: string;
   featured: boolean;
   image_media_ids: string[]; // one or more images, in display order
 }
@@ -36,11 +37,11 @@ export async function createUiShot(input: UiShotInput) {
     .from("ui_shots")
     .select("id", { count: "exact", head: true });
 
-  const { image_media_ids, ...rest } = input;
+  const { image_media_ids, external_url, ...rest } = input;
 
   const { data, error } = await supabase
     .from("ui_shots")
-    .insert({ ...rest, status: "draft", display_order: count ?? 0 })
+    .insert({ ...rest, external_url: external_url || null, status: "draft", display_order: count ?? 0 })
     .select()
     .single();
 
@@ -55,11 +56,11 @@ export async function createUiShot(input: UiShotInput) {
 
 export async function updateUiShot(id: string, input: UiShotInput) {
   const supabase = await createClient();
-  const { image_media_ids, ...rest } = input;
+  const { image_media_ids, external_url, ...rest } = input;
 
   const { data, error } = await supabase
     .from("ui_shots")
-    .update(rest)
+    .update({ ...rest, external_url: external_url || null })
     .eq("id", id)
     .select()
     .single();

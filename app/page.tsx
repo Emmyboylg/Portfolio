@@ -91,6 +91,7 @@ export default async function HomePage() {
                     (p as unknown as { thumbnail: { storage_path: string } | null }).thumbnail
                       ?.storage_path
                   }
+                  projectUrl={p.project_url}
                 />
               ))}
             </div>
@@ -108,6 +109,7 @@ export default async function HomePage() {
               description: shot.description,
               tags: shot.tags,
               tools: shot.tools,
+              externalUrl: shot.external_url,
               images: (shot as unknown as { images: { id: string; storage_path: string }[] }).images,
             }))}
           />

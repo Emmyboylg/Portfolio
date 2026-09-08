@@ -4,6 +4,7 @@ import { Header } from "@/components/public/Header";
 import { Footer } from "@/components/public/Footer";
 import { BlockRenderer } from "@/components/case-study/BlockRenderer";
 import { mediaUrl } from "@/lib/media-url";
+import { ExternalLink } from "lucide-react";
 import {
   getAbout,
   getSocialLinks,
@@ -123,6 +124,17 @@ export default async function ProjectPage({
 
         {caseStudyData && caseStudyData.blocks.length > 0 && (
           <div className="mt-16 space-y-10 border-t border-line pt-12">
+            {caseStudyData.caseStudy.external_url && (
+              <a
+                href={caseStudyData.caseStudy.external_url}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface px-4 py-2 text-sm text-ink transition-colors hover:border-accent hover:bg-accent-soft hover:text-accent"
+              >
+                View full case study
+                <ExternalLink size={14} />
+              </a>
+            )}
             {caseStudyData.blocks.map((block) => (
               <BlockRenderer key={block.id} block={block} mediaLookup={mediaLookup} />
             ))}
