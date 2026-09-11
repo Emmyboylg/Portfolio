@@ -128,33 +128,32 @@ async function attachUiShotImages<T extends { id: string }>(
   return shots.map((s) => ({ ...s, images: imagesByShot.get(s.id) ?? [] }));
 }
 
-export async function getUseCases() {
+// ---- Case studies (homepage section + standalone detail page) ----
+
+export async function getPublishedCaseStudies(limit = 6) {
   const supabase = await createClient();
   const { data } = await supabase
-    .from("use_cases")
-    .select("*, related_project:related_project_id(name, slug)")
-    .order("display_order");
+    .from("case_studies")
+    .select("*, cover:cover_media_id(storage_path), project:project_id(name, slug)")
+    .order("created_at", { ascending: false })
+    .limit(limit);
   return data ?? [];
 }
 
-export async function getUseCaseBySlug(slug: string) {
+export async function getCaseStudyBySlug(slug: string) {
   const supabase = await createClient();
-  const { data } = await supabase
-    .from("use_cases")
-    .select("*, related_project:related_project_id(name, slug)")
+  const { data: caseStudy } = await supabase
+    .from("case_studies")
+    .select("*, cover:cover_media_id(storage_path), project:project_id(name, slug)")
     .eq("slug", slug)
     .maybeSingle();
-  if (!data) return null;
+  if (!caseStudy) return null;
 
-  const { data: imageRows } = await supabase
-    .from("use_case_images")
-    .select("display_order, media:media_id(id, storage_path)")
-    .eq("use_case_id", data.id)
+  const { data: blocks } = await supabase
+    .from("case_study_sections")
+    .select("*")
+    .eq("case_study_id", caseStudy.id)
     .order("display_order");
 
-  const images = (imageRows ?? [])
-    .map((row) => (row as unknown as { media: { id: string; storage_path: string } | null }).media)
-    .filter(Boolean) as { id: string; storage_path: string }[];
-
-  return { useCase: data, images };
+  return { caseStudy, blocks: blocks ?? [] };
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Header } from "@/components/public/Header";
 import { Footer } from "@/components/public/Footer";
 import { ProjectCard } from "@/components/public/ProjectCard";
+import { CaseStudyCard } from "@/components/public/CaseStudyCard";
 import { UiShotsGallery } from "@/components/public/UiShotsGallery";
 import { mediaUrl } from "@/lib/media-url";
 import {
@@ -9,15 +10,17 @@ import {
   getSocialLinks,
   getSkills,
   getPublishedProjects,
+  getPublishedCaseStudies,
   getUiShots,
 } from "@/lib/public-data";
 
 export default async function HomePage() {
-  const [about, socialLinks, skills, projects, uiShots] = await Promise.all([
+  const [about, socialLinks, skills, projects, caseStudies, uiShots] = await Promise.all([
     getAbout(),
     getSocialLinks(),
     getSkills(),
     getPublishedProjects(),
+    getPublishedCaseStudies(),
     getUiShots(),
   ]);
 
@@ -91,6 +94,35 @@ export default async function HomePage() {
                     (p as unknown as { thumbnail: { storage_path: string } | null }).thumbnail
                       ?.storage_path
                   }
+                  projectUrl={p.project_url}
+                />
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section className="pb-20">
+          <div className="mb-6 flex items-end justify-between">
+            <h2 className="font-display text-2xl text-ink">Case studies</h2>
+          </div>
+
+          {caseStudies.length === 0 ? (
+            <p className="text-sm text-ink-faint">Nothing published yet.</p>
+          ) : (
+            <div className="grid gap-8 sm:grid-cols-2">
+              {caseStudies.map((cs) => (
+                <CaseStudyCard
+                  key={cs.id}
+                  slug={cs.slug}
+                  title={cs.title}
+                  summary={cs.summary}
+                  externalUrl={cs.external_url}
+                  coverPath={
+                    (cs as unknown as { cover: { storage_path: string } | null }).cover?.storage_path
+                  }
+                  projectName={
+                    (cs as unknown as { project: { name: string } | null }).project?.name
+                  }
                 />
               ))}
             </div>
@@ -108,6 +140,7 @@ export default async function HomePage() {
               description: shot.description,
               tags: shot.tags,
               tools: shot.tools,
+              externalUrl: shot.external_url,
               images: (shot as unknown as { images: { id: string; storage_path: string }[] }).images,
             }))}
           />
