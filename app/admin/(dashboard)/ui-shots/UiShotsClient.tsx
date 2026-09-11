@@ -163,6 +163,7 @@ function UiShotModal({
   const [images, setImages] = useState<GalleryImage[]>(shot?.images ?? []);
   const [tags, setTags] = useState<string[]>(shot?.tags ?? []);
   const [tools, setTools] = useState<string[]>(shot?.tools ?? []);
+  const [externalUrl, setExternalUrl] = useState(shot?.external_url ?? "");
   const [featured, setFeatured] = useState(shot?.featured ?? false);
   const [saving, startSaving] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -176,6 +177,7 @@ function UiShotModal({
         project_id: projectId || null,
         tags,
         tools,
+        external_url: externalUrl,
         featured,
         image_media_ids: images.map((i) => i.id),
       };
@@ -222,6 +224,13 @@ function UiShotModal({
           />
           <TagInput label="Tools used" value={tools} onChange={setTools} placeholder="Figma, Framer…" />
           <TagInput label="Tags" value={tags} onChange={setTags} placeholder="Dashboard, Campaigns…" />
+          <Field label="External link" hint="Link to the full shot on Dribbble, Behance, etc. (optional)">
+            <Input
+              value={externalUrl}
+              onChange={(e) => setExternalUrl(e.target.value)}
+              placeholder="https://dribbble.com/shots/…"
+            />
+          </Field>
           <label className="flex items-center gap-2 text-sm text-ink">
             <input
               type="checkbox"

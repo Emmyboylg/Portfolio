@@ -9,7 +9,6 @@ export function Header({ name }: { name: string }) {
         </Link>
         <nav className="flex items-center gap-6 text-sm text-ink-soft">
           <Link href="/work" className="hover:text-ink">Work</Link>
-          <Link href="/use-cases" className="hover:text-ink">Use Cases</Link>
           <Link href="/#about" className="hover:text-ink">About</Link>
           <Link href="/#contact" className="hover:text-ink">Contact</Link>
         </nav>

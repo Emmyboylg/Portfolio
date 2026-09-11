@@ -121,6 +121,7 @@ export type CaseStudy = {
   slug: string;
   summary: string;
   cover_media_id: string | null;
+  external_url: string | null;
   status: ContentStatus;
   seo_title: string | null;
   seo_description: string | null;
@@ -147,6 +148,7 @@ export type UiShot = {
   media_id: string | null;
   tags: string[];
   tools: string[];
+  external_url: string | null;
   featured: boolean;
   status: ContentStatus;
   display_order: number;
@@ -157,30 +159,6 @@ export type UiShot = {
 export type UiShotImage = {
   id: string;
   ui_shot_id: string;
-  media_id: string;
-  display_order: number;
-};
-
-export type UseCase = {
-  id: string;
-  title: string;
-  slug: string;
-  short_description: string;
-  problem: string;
-  solution: string;
-  related_project_id: string | null;
-  tags: string[];
-  status: ContentStatus;
-  display_order: number;
-  seo_title: string | null;
-  seo_description: string | null;
-  created_at: string;
-  updated_at: string;
-};
-
-export type UseCaseImage = {
-  id: string;
-  use_case_id: string;
   media_id: string;
   display_order: number;
 };
@@ -212,8 +190,6 @@ export type Database = {
       case_studies: { Row: CaseStudy; Insert: Partial<CaseStudy>; Update: Partial<CaseStudy>; Relationships: [] };
       case_study_sections: { Row: CaseStudySection; Insert: Partial<CaseStudySection>; Update: Partial<CaseStudySection>; Relationships: [] };
       ui_shots: { Row: UiShot; Insert: Partial<UiShot>; Update: Partial<UiShot>; Relationships: [] };
-      use_cases: { Row: UseCase; Insert: Partial<UseCase>; Update: Partial<UseCase>; Relationships: [] };
-      use_case_images: { Row: UseCaseImage; Insert: Partial<UseCaseImage>; Update: Partial<UseCaseImage>; Relationships: [] };
       activity_log: { Row: ActivityLogEntry; Insert: Partial<ActivityLogEntry>; Update: Partial<ActivityLogEntry>; Relationships: [] };
     };
     Views: Record<string, never>;

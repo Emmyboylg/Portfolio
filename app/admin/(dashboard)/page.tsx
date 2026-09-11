@@ -4,7 +4,7 @@ import { timeAgo } from "@/lib/utils";
 async function getCounts() {
   const supabase = await createClient();
 
-  const [projects, published, drafts, caseStudies, uiShots, useCases] =
+  const [projects, published, drafts, caseStudies, uiShots] =
     await Promise.all([
       supabase.from("projects").select("id", { count: "exact", head: true }),
       supabase
@@ -17,7 +17,6 @@ async function getCounts() {
         .eq("status", "draft"),
       supabase.from("case_studies").select("id", { count: "exact", head: true }),
       supabase.from("ui_shots").select("id", { count: "exact", head: true }),
-      supabase.from("use_cases").select("id", { count: "exact", head: true }),
     ]);
 
   return {
@@ -26,7 +25,6 @@ async function getCounts() {
     draftProjects: drafts.count ?? 0,
     totalCaseStudies: caseStudies.count ?? 0,
     totalUiShots: uiShots.count ?? 0,
-    totalUseCases: useCases.count ?? 0,
   };
 }
 
@@ -52,7 +50,6 @@ export default async function DashboardPage() {
     { label: "Draft projects", value: counts.draftProjects },
     { label: "Case studies", value: counts.totalCaseStudies },
     { label: "UI shots", value: counts.totalUiShots },
-    { label: "Use cases", value: counts.totalUseCases },
   ];
 
   return (
