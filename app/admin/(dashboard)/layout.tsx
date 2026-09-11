@@ -18,7 +18,7 @@ export default async function DashboardLayout({
   if (!user) redirect("/admin/login");
 
   return (
-    <div className="flex min-h-screen bg-paper">
+    <div className="admin-shell flex min-h-screen bg-paper">
       <Sidebar />
       <main className="min-w-0 flex-1 p-8">{children}</main>
     </div>

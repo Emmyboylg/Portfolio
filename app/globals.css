@@ -29,6 +29,54 @@
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
+/* Dark theme — applied via a `.dark` class on <html>, toggled by the
+   public site's ThemeToggle. Deliberately not pure black: a warm-leaning
+   charcoal to match the paper/ink pairing used in light mode. */
+.dark {
+  --paper: #15171b;
+  --surface: #1c1f24;
+  --ink: #f2f1ed;
+  --ink-soft: #b3b8bd;
+  --ink-faint: #797f86;
+  --line: #2b2e34;
+  --line-strong: #3c4046;
+
+  --accent: #6b85ff;
+  --accent-ink: #0b0e14;
+  --accent-soft: #1d2340;
+
+  --success: #3ecf8e;
+  --success-soft: #113224;
+  --warning: #e8b34d;
+  --warning-soft: #362a10;
+  --danger: #ef6a6a;
+  --danger-soft: #391414;
+}
+
+/* The admin dashboard always stays light regardless of the public site's
+   theme choice — applied to the admin shell's root container so it
+   overrides any inherited `.dark` values from <html>. */
+.admin-shell {
+  --paper: #faf9f6;
+  --surface: #ffffff;
+  --ink: #14181c;
+  --ink-soft: #585f66;
+  --ink-faint: #8b9198;
+  --line: #e6e3db;
+  --line-strong: #d3cfc4;
+
+  --accent: #2547e0;
+  --accent-ink: #ffffff;
+  --accent-soft: #eaedfd;
+
+  --success: #1a7f4e;
+  --success-soft: #e6f4ec;
+  --warning: #9a6b00;
+  --warning-soft: #fbf1dc;
+  --danger: #c22b2b;
+  --danger-soft: #fbeaea;
+}
+
 @theme inline {
   --color-paper: var(--paper);
   --color-surface: var(--surface);
@@ -59,10 +107,15 @@ html {
   color-scheme: light;
 }
 
+html.dark {
+  color-scheme: dark;
+}
+
 body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-sans);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 ::selection {

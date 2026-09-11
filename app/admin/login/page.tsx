@@ -14,7 +14,7 @@ function LoginForm() {
   const next = searchParams.get("next") ?? "/admin";
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-paper px-4">
+    <div className="admin-shell flex min-h-screen items-center justify-center bg-paper px-4">
       <div className="w-full max-w-sm rounded-lg border border-line bg-surface p-8 shadow-sm">
         <h1 className="font-display text-2xl text-ink">Studio Admin</h1>
         <p className="mt-1 text-sm text-ink-soft">

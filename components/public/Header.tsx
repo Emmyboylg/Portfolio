@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Header({ name }: { name: string }) {
   return (
@@ -11,6 +12,7 @@ export function Header({ name }: { name: string }) {
           <Link href="/work" className="hover:text-ink">Work</Link>
           <Link href="/#about" className="hover:text-ink">About</Link>
           <Link href="/#contact" className="hover:text-ink">Contact</Link>
+          <ThemeToggle />
         </nav>
       </div>
     </header>
