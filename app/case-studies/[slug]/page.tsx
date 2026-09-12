@@ -87,7 +87,7 @@ export default async function CaseStudyPage({
               className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface px-4 py-2 text-ink transition-colors hover:border-accent hover:bg-accent-soft hover:text-accent"
             >
               View original
-              <ExternalLink size={14} />
+              <ExternalLink size={14} strokeWidth={2.75} />
             </a>
           )}
         </div>

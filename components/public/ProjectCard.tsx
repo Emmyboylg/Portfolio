@@ -40,7 +40,7 @@ export function ProjectCard({
       </Link>
 
       <div className="mt-3 flex items-start justify-between gap-3">
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <Link href={`/work/${slug}`}>
               <h3 className="font-display text-lg text-ink group-hover:text-accent">{name}</h3>
@@ -54,7 +54,7 @@ export function ProjectCard({
                 aria-label={`Open ${name}'s live site`}
                 title="Visit live site"
               >
-                <ExternalLink size={12} />
+                <ExternalLink size={12} strokeWidth={2.75} />
               </a>
             )}
           </div>

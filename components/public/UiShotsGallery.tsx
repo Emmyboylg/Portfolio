@@ -76,7 +76,7 @@ export function UiShotsGallery({ shots }: { shots: ShotForGallery[] }) {
                       aria-label={`View ${shot.title} on the original platform`}
                       title="View original"
                     >
-                      <ExternalLink size={12} />
+                      <ExternalLink size={12} strokeWidth={2.75} />
                     </a>
                   )}
                 </div>

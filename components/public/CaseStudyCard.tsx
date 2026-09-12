@@ -38,7 +38,7 @@ export function CaseStudyCard({
       </Link>
 
       <div className="mt-3 flex items-start justify-between gap-3">
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <Link href={`/case-studies/${slug}`}>
               <h3 className="font-display text-lg text-ink group-hover:text-accent">{title}</h3>
@@ -52,7 +52,7 @@ export function CaseStudyCard({
                 aria-label={`View ${title} on the original platform`}
                 title="View original"
               >
-                <ExternalLink size={12} />
+                <ExternalLink size={12} strokeWidth={2.75} />
               </a>
             )}
           </div>

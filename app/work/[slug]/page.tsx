@@ -132,7 +132,7 @@ export default async function ProjectPage({
                 className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface px-4 py-2 text-sm text-ink transition-colors hover:border-accent hover:bg-accent-soft hover:text-accent"
               >
                 View full case study
-                <ExternalLink size={14} />
+                <ExternalLink size={14} strokeWidth={2.75} />
               </a>
             )}
             {caseStudyData.blocks.map((block) => (
