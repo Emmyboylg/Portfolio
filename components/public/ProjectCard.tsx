@@ -39,8 +39,8 @@ export function ProjectCard({
         </div>
       </Link>
 
-      <div className="mt-3 flex items-start justify-between gap-3">
-        <div className="min-w-0 flex-1">
+      <div className="mt-3 grid grid-cols-[1fr_auto] items-start gap-3">
+        <div className="min-w-0">
           <div className="flex items-center gap-2">
             <Link href={`/work/${slug}`}>
               <h3 className="font-display text-lg text-ink group-hover:text-accent">{name}</h3>
@@ -60,7 +60,7 @@ export function ProjectCard({
           </div>
           <p className="mt-0.5 text-sm text-ink-soft">{shortDescription}</p>
         </div>
-        <div className="shrink-0 text-right text-xs text-ink-faint">
+        <div className="text-right text-xs text-ink-faint">
           {category && <div>{category}</div>}
           {year && <div>{year}</div>}
         </div>

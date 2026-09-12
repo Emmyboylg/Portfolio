@@ -37,8 +37,8 @@ export function CaseStudyCard({
         </div>
       </Link>
 
-      <div className="mt-3 flex items-start justify-between gap-3">
-        <div className="min-w-0 flex-1">
+      <div className="mt-3 grid grid-cols-[1fr_auto] items-start gap-3">
+        <div className="min-w-0">
           <div className="flex items-center gap-2">
             <Link href={`/case-studies/${slug}`}>
               <h3 className="font-display text-lg text-ink group-hover:text-accent">{title}</h3>
@@ -59,7 +59,7 @@ export function CaseStudyCard({
           <p className="mt-0.5 text-sm text-ink-soft">{summary}</p>
         </div>
         {projectName && (
-          <div className="shrink-0 text-right text-xs text-ink-faint">{projectName}</div>
+          <div className="text-right text-xs text-ink-faint">{projectName}</div>
         )}
       </div>
     </div>
